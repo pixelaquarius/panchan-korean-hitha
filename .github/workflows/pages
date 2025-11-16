@@ -19,20 +19,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4  # <-- ĐÃ SỬA TỪ v3
+        uses: actions/checkout@v4
       
+      # Bước 1: Cài đặt Ruby và cache Gem
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2' # Nên dùng bản 3.2 để tránh lỗi tương thích của Vercel
+          bundler-cache: true # Tự động chạy 'bundle install' và cache gem
+
+      # Bước 2: Cấu hình GitHub Pages
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v5  # <-- ĐÃ SỬA TỪ v3
+        uses: actions/configure-pages@v5
       
+      # Bước 3: Build trang Jekyll bằng lệnh bundle exec
       - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
+        # Sử dụng lệnh build thủ công thay vì action jekyll-build-pages
+        run: bundle exec jekyll build --source ./ --destination ./_site --baseurl ${{ steps.pages.outputs.base_path }}
       
+      # Bước 4: Tải artifact lên
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3  # <-- ĐÃ SỬA TỪ v2 (FIX LỖI CHÍNH)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Chỉ định đường dẫn tới thư mục _site đã build
+          path: ./_site
 
   deploy:
     environment:
@@ -43,4 +54,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4  # <-- ĐÃ SỬA TỪ v2
+        uses: actions/deploy-pages@v4
