@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Theme và Jekyll
-gem "jekyll", "~> 4.3.3" 
+gem "jekyll", "4.3.3" 
 gem "minimal-mistakes-jekyll"
 
 # --- [MỚI] THÊM CÁC DÒNG NÀY ĐỂ SỬA LỖI MARKDOWN ---
