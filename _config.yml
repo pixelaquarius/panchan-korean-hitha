@@ -10,7 +10,7 @@ permalink: /:title/
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-primer
+theme: minimal-mistakes-jekyll
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
