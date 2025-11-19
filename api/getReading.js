@@ -1,40 +1,43 @@
 // File: /api/getReading.js
-// Đây là Serverless Function chạy trên Vercel (Node.js)
-
 export default async function handler(request, response) {
-    // 1. Chỉ cho phép phương thức POST
+    // Cho phép CORS để tránh lỗi chặn từ trình duyệt
+    response.setHeader('Access-Control-Allow-Credentials', true);
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+    response.setHeader(
+        'Access-Control-Allow-Headers',
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    );
+
+    if (request.method === 'OPTIONS') {
+        response.status(200).end();
+        return;
+    }
+
     if (request.method !== 'POST') {
         return response.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    // 2. Lấy API key từ biến môi trường của Vercel
     const apiKey = process.env.GEMINI_API_KEY;
-
-    if (!apiKey) {
-        return response.status(500).json({ error: 'API key is not configured' });
-    }
+    if (!apiKey) return response.status(500).json({ error: 'API key missing' });
 
     try {
-        // 3. Lấy lịch sử chat và câu hỏi mới từ client gửi lên
         const { contents, generationConfig } = request.body;
-
-        const modelName = "gemini-1.5-flash-latest";
+        // Dùng flash model để nhanh và rẻ hơn, hoặc đổi sang gemini-1.5-pro nếu cần thông minh hơn
+        const modelName = "gemini-1.5-flash"; 
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
 
-        // 4. Gửi yêu cầu đến Google AI từ server
         const apiResponse = await fetch(apiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ contents, generationConfig }) // Gửi payload mà client đã chuẩn bị
+            body: JSON.stringify({ contents, generationConfig })
         });
 
         const result = await apiResponse.json();
-
-        // 5. Gửi kết quả về lại cho trình duyệt (client)
         response.status(200).json(result);
 
     } catch (error) {
-        console.error('Error calling Gemini API:', error);
-        response.status(500).json({ error: 'Failed to fetch from AI' });
+        console.error('Gemini API Error:', error);
+        response.status(500).json({ error: 'Internal Server Error' });
     }
 }
