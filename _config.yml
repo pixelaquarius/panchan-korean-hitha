@@ -3,13 +3,13 @@ email: lyanthinh03@gmail.com
 description: >-
   Agency Tăng trưởng E-commerce & Performance Marketing.
 
-url: "https://miasteam.click" 
+url: "https://miasteam.click"
 baseurl: ""
 
 permalink: /:title/
 
 # Build settings
-markdown: kramdown # [ĐÃ SỬA LỖI CHÍNH TẢ]
+markdown: kramdown
 theme: minimal-mistakes-jekyll
 
 plugins:
@@ -27,6 +27,6 @@ exclude:
   - README.md
   - .github/
   - admin/
-  - api/ # [QUAN TRỌNG] Loại trừ folder api để Vercel xử lý riêng dưới dạng Serverless Function
+  - api/ # [BẮT BUỘC PHẢI CÓ DÒNG NÀY]
 include:
   - _pages
