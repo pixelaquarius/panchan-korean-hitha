@@ -4,12 +4,12 @@ description: >-
   Agency Tăng trưởng E-commerce & Performance Marketing.
 
 url: "https://miasteam.click" 
-baseurl: "" 
+baseurl: ""
 
 permalink: /:title/
 
 # Build settings
-markdown: kramdown # [ĐÃ SỬA] kradmdown -> kramdown
+markdown: kramdown # [ĐÃ SỬA LỖI CHÍNH TẢ]
 theme: minimal-mistakes-jekyll
 
 plugins:
@@ -27,6 +27,6 @@ exclude:
   - README.md
   - .github/
   - admin/
-  - api/ # [THÊM] Loại trừ api khỏi Jekyll build để Vercel xử lý riêng
+  - api/ # [QUAN TRỌNG] Loại trừ folder api để Vercel xử lý riêng dưới dạng Serverless Function
 include:
   - _pages
