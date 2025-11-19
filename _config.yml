@@ -1,23 +1,23 @@
 title: Miasteam - Ecommerce Operation Agency
 email: lyanthinh03@gmail.com
-description: >- # this means to ignore newlines until "baseurl:"
+description: >-
   Agency Tăng trưởng E-commerce & Performance Marketing.
 
 url: "https://miasteam.click" 
-baseurl: ""
+baseurl: "" 
 
 permalink: /:title/
 
 # Build settings
-markdown: kradmdown
+markdown: kramdown # [ĐÃ SỬA] kradmdown -> kramdown
 theme: minimal-mistakes-jekyll
 
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
-  - jekyll-include-cache  # Đảm bảo bạn đã thêm dòng này
-  - jekyll-sitemap        # Đảm bảo bạn đã thêm dòng này
-  - minimal-mistakes-jekyll # <-- THÊM DÒNG NÀY ĐỂ SỬA LỖI SASS/IMPORT
+  - jekyll-include-cache
+  - jekyll-sitemap
+  - minimal-mistakes-jekyll
 
 exclude:
   - Gemfile
@@ -27,5 +27,6 @@ exclude:
   - README.md
   - .github/
   - admin/
+  - api/ # [THÊM] Loại trừ api khỏi Jekyll build để Vercel xử lý riêng
 include:
-  - admin
+  - _pages
