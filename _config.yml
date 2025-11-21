@@ -10,7 +10,6 @@ permalink: /:title/
 
 # Build settings
 markdown: kramdown
-# theme: minimal-mistakes-jekyll           <-- Dòng cũ: XÓA hoặc COMMENT lại
 remote_theme: mmistakes/minimal-mistakes   # <-- Dòng mới: BẮT BUỘC PHẢI CÓ
 
 plugins:
